@@ -18,6 +18,7 @@ const server = http.createServer((request, response) => {
 const doc = new Y.Doc();
 
 wss.on('connection', (ws, req) => {
+    console.log('New WebSocket connection from:', req.headers.origin);
     setupWSConnection(ws, req, { doc });
 });
 
@@ -42,6 +43,7 @@ server.on('upgrade', (request, socket, head) => {
     });
 });
 
-server.listen(port, '0.0.0.0', () => {
-    console.log(`WebSocket server is running on port ${port}`);
+server.listen(PORT, '0.0.0.0', () => {
+    console.log(`WebSocket server running in ${NODE_ENV} mode on port ${PORT}`);
+    console.log(`Allowed origins: ${ALLOWED_ORIGINS.join(', ')}`);
 }); 
